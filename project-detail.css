@@ -1,0 +1,152 @@
+/* ==========================================================================
+   项目详情页
+   - 左上角返回按钮
+   - 图片 / 视频垂直堆叠（不拉伸，保持原始比例）
+   - 视频点击播放
+   ========================================================================== */
+
+:root {
+  --bg-page:  #050816;
+  --font-en:  "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-page);
+}
+
+body {
+  font-family: var(--font-en);
+  color: #f1f4ff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- 左上角返回按钮 ---------- */
+.back-btn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px 8px 10px;
+  background: rgba(15, 22, 48, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(140, 165, 230, 0.22);
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: #cdd5ee;
+  transition: all 0.35s var(--ease-out);
+}
+
+.back-btn:hover {
+  background: rgba(28, 38, 78, 0.85);
+  border-color: rgba(160, 185, 245, 0.45);
+  color: #fff;
+  transform: translateX(-2px);
+}
+
+/* ---------- 图片 / 视频堆叠 ---------- */
+.image-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 72px 24px 80px;
+}
+
+/* 图片：保持原尺寸，不缩放不拉伸 */
+.image-stack img {
+  display: block;
+  max-width: min(1440px, calc(100vw - 48px));
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+}
+
+.image-stack img + img,
+.image-stack img + .media-video-item,
+.image-stack .media-video-item + img,
+.image-stack .media-video-item + .media-video-item {
+  margin-top: 24px;
+}
+
+/* ---------- 视频 ---------- */
+.media-video-item {
+  position: relative;
+  max-width: min(1440px, calc(100vw - 48px));
+  width: 100%;
+  cursor: pointer;
+}
+
+.detail-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* 播放按钮：居中覆盖在视频上 */
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.play-overlay:hover svg circle {
+  fill: rgba(0,0,0,0.75);
+}
+
+.play-overlay svg {
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  pointer-events: none;
+}
+
+.play-overlay.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 768px) {
+  .back-btn {
+    top: 14px;
+    left: 14px;
+    padding: 7px 12px 7px 9px;
+    font-size: 12px;
+  }
+  .image-stack {
+    padding: 56px 12px 60px;
+  }
+  .image-stack img {
+    max-width: calc(100vw - 24px);
+  }
+  .media-video-item {
+    max-width: calc(100vw - 24px);
+  }
+  .image-stack img + img,
+  .image-stack img + .media-video-item,
+  .image-stack .media-video-item + img,
+  .image-stack .media-video-item + .media-video-item {
+    margin-top: 14px;
+  }
+}

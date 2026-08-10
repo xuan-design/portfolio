@@ -1,0 +1,180 @@
+/* ==========================================================================
+   小炫 · 设计作品集 2026
+   主题：深空蓝 · 卡片错落 + hover 放大 4%
+   ========================================================================== */
+
+:root {
+  --bg-deep:        #060a1c;
+  --font-cn:        "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-en:        "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- 基础 ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-cn);
+  color: #f1f4ff;
+  background: var(--bg-deep);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+::selection { background: rgba(183, 148, 246, 0.35); color: #fff; }
+
+/* ---------- 背景层 ---------- */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("media/bg.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 4, 18, 0.55) 100%);
+  pointer-events: none;
+}
+
+/* ---------- 主体：整页居中，卡片略靠下 ---------- */
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 56px;
+}
+
+/* ---------- 作品目录（4 卡 · 错落倾斜） ---------- */
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  max-width: 1440px;
+  width: 100%;
+  padding: 20px 12px 40px;
+  margin-top: 60px;           /* 整体略靠下 */
+  perspective: 1600px;
+  align-items: start;
+}
+
+.card {
+  position: relative;
+  display: block;
+  border-radius: 24px;
+  overflow: visible;
+  transform-origin: center center;
+  transition: transform 0.55s var(--ease-out);
+  animation: cardIn 0.9s var(--ease-out) both;
+  will-change: transform;
+}
+
+/* 静止态错落 */
+.card-tilt-low.card-tilt-left   { transform: translateY(36px) rotate(-2.4deg); }
+.card-tilt-high.card-tilt-right { transform: translateY(0)     rotate( 1.8deg); }
+
+.card:nth-child(1) { animation-delay: 0.10s; }
+.card:nth-child(2) { animation-delay: 0.20s; }
+.card:nth-child(3) { animation-delay: 0.30s; }
+.card:nth-child(4) { animation-delay: 0.40s; }
+
+.card-img {
+  width: 100%;
+  max-width: 100%;             /* 不超出卡片容器，窄图不拉伸 */
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  transition: box-shadow 0.55s var(--ease-out);
+}
+
+/* hover：仅放大 4% + 抬升 + 复位倾斜（高优先级确保覆盖倾斜类） */
+.catalog .card:hover {
+  transform: translateY(-6px) rotate(0deg) scale(1.04) !important;
+  z-index: 5;
+}
+
+/* 键盘 focus 与 hover 一致 */
+.catalog .card:focus-visible {
+  transform: translateY(-6px) rotate(0deg) scale(1.04) !important;
+  outline: none;
+  z-index: 5;
+}
+
+/* ---------- 页脚 ---------- */
+.site-footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 0;
+  font-family: var(--font-en);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(111, 122, 163, 0.7);
+  z-index: 1;
+}
+
+.footer-sep { opacity: 0.5; }
+
+/* ---------- 动画 ---------- */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 1200px) {
+  .page { padding: 20px 32px; }
+  .catalog {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 30px;
+  }
+  .card-tilt-low.card-tilt-left,
+  .card-tilt-high.card-tilt-right { transform: none; }
+}
+
+@media (max-width: 640px) {
+  .page { padding: 16px 18px; }
+  .catalog {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-top: 16px;
+  }
+  .card-tilt-low.card-tilt-left,
+  .card-tilt-high.card-tilt-right { transform: none; }
+  .card:hover { transform: scale(1.03); }
+}
