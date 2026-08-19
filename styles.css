@@ -84,8 +84,8 @@ img { display: block; max-width: 100%; }
 .card {
   position: relative;
   display: block;
-  /* 圆角按切图真实比例（34px @ 375×556）自适应，保证边框环与切图圆角完全贴合 */
-  border-radius: 9.07% / 6.12%;
+  /* 圆角按切图真实比例（40px @ 375×556）自适应，保证边框环与切图圆角完全贴合 */
+  border-radius: 10.67% / 7.19%;
   overflow: visible;
   transform-origin: center center;
   /* hover 回弹：0.3s 弹性曲线（放大后轻微回弹） */
@@ -111,7 +111,7 @@ img { display: block; max-width: 100%; }
   max-width: 100%;             /* 不超出卡片容器，窄图不拉伸 */
   height: auto;
   display: block;
-  border-radius: 9.07% / 6.12%;   /* 与切图圆角一致 */
+  border-radius: 10.67% / 7.19%;   /* 与切图圆角一致（40px） */
   transition: box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
