@@ -32,6 +32,8 @@
   .present-resume img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:6px;box-shadow:0 12px 48px rgba(0,0,0,.6);cursor:auto}
   .present-resume-close{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;background:rgba(15,22,48,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(140,165,230,.22);color:#cdd5ee;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;line-height:1;transition:all .2s ease}
   .present-resume-close:hover{background:rgba(28,38,78,.85);color:#fff}
+  :fullscreen .present-toolbar{display:none}
+  :-webkit-full-screen .present-toolbar{display:none}
   @media (max-width:640px){
     .present-toolbar{display:none}
   }
