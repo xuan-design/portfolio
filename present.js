@@ -1,10 +1,15 @@
 /* ==========================================================================
    小炫 · 设计作品集 2026
    工具栏：我的简历（灯箱查看）+ 全屏展示（浏览器全屏切换）
-   移动端不显示工具栏
+   - 全屏后隐藏「全屏展示」按钮，保留「我的简历」
+   - 「我的简历」仅在目录页显示，进入详情后隐藏
+   - 移动端不显示工具栏
    ========================================================================== */
 (() => {
   'use strict';
+
+  /* 独立详情页（直接访问 project-XX.html）不显示简历按钮 */
+  const isStandaloneDetail = !!document.querySelector('body > main.image-stack');
 
   /* ---------- Fullscreen API 兼容 ---------- */
   function requestFS(el) {
@@ -32,8 +37,9 @@
   .present-resume img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:6px;box-shadow:0 12px 48px rgba(0,0,0,.6);cursor:auto}
   .present-resume-close{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;background:rgba(15,22,48,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(140,165,230,.22);color:#cdd5ee;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;line-height:1;transition:all .2s ease}
   .present-resume-close:hover{background:rgba(28,38,78,.85);color:#fff}
-  :fullscreen .present-toolbar{display:none}
-  :-webkit-full-screen .present-toolbar{display:none}
+  :fullscreen .present-fullscreen-btn{display:none}
+  :-webkit-full-screen .present-fullscreen-btn{display:none}
+  body.detail-open .present-resume-btn{display:none}
   @media (max-width:640px){
     .present-toolbar{display:none}
   }
@@ -50,13 +56,15 @@
   /* ---------- 简历按钮（在左）---------- */
   const resumeBtn = document.createElement('button');
   resumeBtn.type = 'button';
+  resumeBtn.className = 'present-resume-btn';
   resumeBtn.setAttribute('aria-label', '查看我的简历');
   resumeBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>我的简历</span>';
-  toolbar.appendChild(resumeBtn);
+  if (!isStandaloneDetail) toolbar.appendChild(resumeBtn);
 
   /* ---------- 全屏按钮（在右）---------- */
   const fsBtn = document.createElement('button');
   fsBtn.type = 'button';
+  fsBtn.className = 'present-fullscreen-btn';
   fsBtn.setAttribute('aria-label', '全屏展示');
   fsBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span>全屏展示</span>';
   toolbar.appendChild(fsBtn);
