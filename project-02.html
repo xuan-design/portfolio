@@ -21,4 +21,5 @@
 <img src="media/01/1-14.png" alt="" loading="lazy"/>
 </main>
 <script>document.querySelectorAll(".detail-video").forEach(function(v){v.addEventListener("click",function(){if(v.paused){v.play();v.nextElementSibling.classList.add("is-hidden")}else{v.pause();v.nextElementSibling.classList.remove("is-hidden")}});v.addEventListener("ended",function(){v.nextElementSibling.classList.remove("is-hidden")});v.nextElementSibling.addEventListener("click",function(e){e.stopPropagation();v.play();this.classList.add("is-hidden")})});</script>
+<script src="present.js"></script>
 </body></html>
