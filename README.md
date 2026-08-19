@@ -11,7 +11,7 @@ portfolio/
 ├── project-01.html         # 项目详情：活动玩法设计
 ├── project-02.html         # 项目详情：产品体验设计
 ├── project-03.html         # 项目详情：AI 设计工作流
-├── project-04.html         # 项目详情：精选视觉作品
+├── project-04.html         # 项目详情：设计沉淀 & 精选作品
 ├── styles.css              # 全站样式（背景图 + 卡片 hover 放大+外发光）
 ├── project.css             # 项目详情页样式
 ├── script.js               # 交互：平滑滚动 / 键盘可达
