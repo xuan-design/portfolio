@@ -67,11 +67,10 @@ a { color: inherit; text-decoration: none; }
   padding: 72px 24px 80px;
 }
 
-/* 图片：保持原尺寸，不缩放不拉伸 */
+/* 图片：统一宽度（等比放大窄图，宽图截到上限） */
 .image-stack img {
   display: block;
-  max-width: min(1440px, calc(100vw - 48px));
-  width: auto;
+  width: min(1440px, calc(100vw - 48px));
   height: auto;
   margin: 0 auto;
 }
@@ -138,7 +137,7 @@ a { color: inherit; text-decoration: none; }
     padding: 56px 12px 60px;
   }
   .image-stack img {
-    max-width: calc(100vw - 24px);
+    width: calc(100vw - 24px);
   }
   .media-video-item {
     max-width: calc(100vw - 24px);

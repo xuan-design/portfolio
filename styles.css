@@ -84,7 +84,8 @@ img { display: block; max-width: 100%; }
 .card {
   position: relative;
   display: block;
-  border-radius: 24px;
+  /* 圆角按切图真实比例（34px @ 375×556）自适应，保证边框环与切图圆角完全贴合 */
+  border-radius: 9.07% / 6.12%;
   overflow: visible;
   transform-origin: center center;
   /* hover 回弹：0.3s 弹性曲线（放大后轻微回弹） */
@@ -110,7 +111,7 @@ img { display: block; max-width: 100%; }
   max-width: 100%;             /* 不超出卡片容器，窄图不拉伸 */
   height: auto;
   display: block;
-  border-radius: 24px;
+  border-radius: 9.07% / 6.12%;   /* 与切图圆角一致 */
   transition: box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -118,7 +119,7 @@ img { display: block; max-width: 100%; }
 .card::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -1px;                 /* 向外扩 1px，让边框环居中贴合切图边缘 */
   border-radius: inherit;
   padding: 2px;
   background:
