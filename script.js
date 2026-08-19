@@ -28,5 +28,20 @@
         card.click();
       }
     });
+
+    /* ---------------- BorderGlow 渐变边框：跟随鼠标角度 ---------------- */
+    card.addEventListener('pointermove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const dx = x - cx;
+      const dy = y - cy;
+      if (dx === 0 && dy === 0) return;
+      let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+      if (angle < 0) angle += 360;
+      card.style.setProperty('--cursor-angle', angle.toFixed(2) + 'deg');
+    });
   });
 })();
